@@ -36,16 +36,24 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # user vars
-backupdir=~/.backup
+backupdir=~/test
 suffix=$(date +"%Y-%m-%d@%T")
 filecopy() {
   if [[ -f $1 || -d $1 ]]; then
     canon=$(readlink -f ${1})
+    target_path=$(dirname ${canon})
+    target_file=$(basename ${1})
     destination=${backupdir}$(dirname ${canon})
     if [[ ! -d "$destination" ]]; then
       mkdir -p "$destination"
     fi
-      cp -ax "${1}" "${destination}/${1}~${suffix}"
+      # echo "arg: " $1
+      # echo "canon:" $canon
+      # echo "target: " $target_path
+      # echo "dest: " $destination
+      # echo "final: " ${destination}/$(basename ${1})~${suffix}
+
+      cp -ax "${1}" "${destination}/${target_file}~${suffix}"
       echo "backed up '${1}' to ${destination}/${1}.${suffix}"
   else
     echo "failed to backup: ${1}. Not a valid file" >&2
