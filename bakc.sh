@@ -53,7 +53,7 @@ filecopy() {
       # echo "dest: " $destination
       # echo "final: " ${destination}/$(basename ${1})~${suffix}
 
-      cp -ax "${1}" "${destination}/${target_file}~${suffix}"
+      cp -x "${1}" "${destination}/${target_file}~${suffix}"
       echo "backed up '${1}' to ${destination}/${1}.${suffix}"
   else
     echo "failed to backup: ${1}. Not a valid file" >&2
