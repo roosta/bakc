@@ -44,7 +44,7 @@ filecopy() {
     if [[ ! -d "$destination" ]]; then
       mkdir -p "$destination"
     fi
-    cp -x "${1}" "${destination}/${target_file}~${bakc__file_suffix}"
+    cp -rx "${1}" "${destination}/${target_file}~${bakc__file_suffix}"
     echo "backed up '${1}' to ${destination}/${1}.${bakc__file_suffix}"
   else
     echo "failed to backup: ${1}. Not a valid file" >&2
