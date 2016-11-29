@@ -34,27 +34,18 @@
 # http://redsymbol.net/articles/unofficial-bash-strict-mode/
 set -euo pipefail
 IFS=$'\n\t'
-
-# user vars
-backupdir=~/.backup
-suffix=$(date +"%Y-%m-%d@%T")
+source ~/.bakcrc
 filecopy() {
   if [[ -f $1 || -d $1 ]]; then
     canon=$(readlink -f ${1})
     target_path=$(dirname ${canon})
     target_file=$(basename ${1})
-    destination=${backupdir}$(dirname ${canon})
+    destination=${bakc__backup_path}$(dirname ${canon})
     if [[ ! -d "$destination" ]]; then
       mkdir -p "$destination"
     fi
-      # echo "arg: " $1
-      # echo "canon:" $canon
-      # echo "target: " $target_path
-      # echo "dest: " $destination
-      # echo "final: " ${destination}/$(basename ${1})~${suffix}
-
-      cp -x "${1}" "${destination}/${target_file}~${suffix}"
-      echo "backed up '${1}' to ${destination}/${1}.${suffix}"
+    cp -x "${1}" "${destination}/${target_file}~${bakc__file_suffix}"
+    echo "backed up '${1}' to ${destination}/${1}.${bakc__file_suffix}"
   else
     echo "failed to backup: ${1}. Not a valid file" >&2
   fi
