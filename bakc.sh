@@ -36,7 +36,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # user vars
-backupdir=~/test
+backupdir=~/.backup
 suffix=$(date +"%Y-%m-%d@%T")
 filecopy() {
   if [[ -f $1 || -d $1 ]]; then
