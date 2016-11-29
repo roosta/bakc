@@ -8,10 +8,10 @@
 # [ ] verbose
 # [ ] choose to follow symlinks
 # [ ] add clean
-# [ ] conf file?
+# [x] conf file?
 # [ ] move option
 # [ ] include home directory in elevated mode
-# [ ] custom location
+# [x] custom location
 # [ ] include a temp option
 # [ ] add undo delete
 # [ ] add archive function
