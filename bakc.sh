@@ -48,7 +48,7 @@ file_backup_long() {
       mkdir -p "$destination"
     fi
     cp -Lrx "${1}" "${destination}/${target_file}~${bakc__file_suffix:?}"
-    echo "backed up '${1}' to ${destination}/${1}.${bakc__file_suffix:?}"
+    echo "backed up '${1}' to ${destination}/${target_file}~${bakc__file_suffix:?}"
   else
     echo "failed to backup: ${1}. Not a valid file" >&2
   fi
@@ -56,7 +56,7 @@ file_backup_long() {
 
 file_backup_short() {
   if [[ -f $1 || -d $1 ]]; then
-    cp -Lri "${1}" "./${1}.bak"
+    cp -Lri "${1}" "$(basename "${1}").bak"
     echo "Created ${1}.bak here ($(pwd))"
   else
     echo "Not a valid file" >&2
