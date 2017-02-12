@@ -69,8 +69,8 @@ while getopts ":hwR:" opt; do
       exit 0
       ;;
     w)
-      if [[ -f $1 ]]; then
-        cp $1 "./${1}.bak"
+      if [[ -f $2 ]]; then
+        cp $2 "./${2}.bak"
       else
         echo "Not a valid file" >&2
         exit 1
