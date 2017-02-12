@@ -6,7 +6,6 @@
 # Append dateformatted date and .bak to file (FILENAME.DATE.bak)
 # TODO:
 # [ ] verbose
-# [ ] choose to follow symlinks
 # [ ] add clean
 # [x] conf file?
 # [ ] move option
@@ -35,8 +34,11 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+wflag=
+Rflag=
+
 source "$HOME/.bakcrc"
-filecopy() {
+file_backup_long() {
   if [[ -f $1 || -d $1 ]]; then
     canon=$(readlink -f "${1}")
     # target_path=$(dirname ${canon})
@@ -52,38 +54,65 @@ filecopy() {
   fi
 }
 
-fileremove() {
-  if [[ -f $1 ]]; then
-    rm -Iv --one-file-system "${1}"
-    echo "& removed"
-  elif [[ -d $1 ]]; then
-    rm -Irv --one-file-system "${1}"
+file_backup_short() {
+  if [[ -f $1 || -d $1 ]]; then
+    cp -Lri "${1}" "./${1}.bak"
+    echo "Created ${1}.bak here ($(pwd))"
   else
-    echo "Failed to remove: ${1}. Check permissions" >&2
+    echo "Not a valid file" >&2
+    exit 1
   fi
 }
 
-options=":hw:R:"
+file_remove() {
+  if [[ $# -gt 0 ]]; then
+    while [[ $# -ne 0 ]]; do
+      if [[ -f $1 ]]; then
+        rm -Iv --one-file-system "${1}"
+      elif [[ -d $1 ]]; then
+        rm -Irv --one-file-system "${1}"
+      else
+        echo "Failed to remove: ${1}. Check permissions" >&2
+      fi
+      shift
+    done
+  else
+    echo "Provide a file to remove" >&2
+  fi
+}
+
+run() {
+  if [[ $# -gt 0 ]]; then
+    while [[ $# -ne 0 ]]; do
+      if [[ ! -z $wflag  || ! -z $Rflag ]]; then
+        if [[ ! -z $wflag ]]; then
+          file_backup_short "$1"
+        fi
+        if [[ ! -z $Rflag ]]; then
+          file_remove "$1"
+        fi
+      else
+        file_backup_long "$1"
+      fi
+      shift
+    done
+    exit 0
+  else
+    echo "Provide a file to backup" >&2
+  fi
+}
+
+options=":hwR"
 while getopts ${options} opt; do
   case $opt in
     h)
       echo "Help placeholder" >&2
-      exit 0
       ;;
     w)
-      if [[ -f $2 ]]; then
-        cp -Lri "${2}" "./${2}.bak"
-        echo "Created ${2}.bak here ($(pwd))"
-      else
-        echo "Not a valid file" >&2
-        exit 1
-      fi
-      exit 0
+      wflag=1
       ;;
     R)
-      filecopy "${1}"
-      fileremove "${1}"
-      exit 0
+      Rflag=1
       ;;
     \?)
       echo "Invalid option: -${OPTARG}" >&2
@@ -95,14 +124,6 @@ while getopts ${options} opt; do
       ;;
   esac
 done
+shift $(($OPTIND - 1))
+run "$@"
 
-if [[ $# -gt 0 ]]; then
-  while [[ $# -ne 0 ]]; do
-    filecopy "${1}"
-    shift
-  done
-  exit 0
-else
-  echo "Provide a file to backup"
-  exit 1
-fi
