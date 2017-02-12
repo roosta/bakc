@@ -63,7 +63,8 @@ fileremove() {
   fi
 }
 
-while getopts ":hwR:" opt; do
+options=":hw:R:"
+while getopts ${options} opt; do
   case $opt in
     h)
       echo "Help placeholder" >&2
