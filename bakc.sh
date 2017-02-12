@@ -94,8 +94,13 @@ while getopts ":hwR:" opt; do
 done
 
 
-while [[ $# -ne 0 ]]; do
-  filecopy $1
-  shift
-done
-exit 0
+if [[ $# -gt 0 ]]; then
+  while [[ $# -ne 0 ]]; do
+    filecopy $1
+    shift
+  done
+  exit 0
+else
+  echo "Provide a file to backup"
+  exit 1
+fi
