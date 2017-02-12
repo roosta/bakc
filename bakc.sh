@@ -72,7 +72,8 @@ while getopts ${options} opt; do
       ;;
     w)
       if [[ -f $2 ]]; then
-        cp "${2}" "./${2}.bak"
+        cp -Lri "${2}" "./${2}.bak"
+        echo "Created ${2}.bak here ($(pwd))"
       else
         echo "Not a valid file" >&2
         exit 1
