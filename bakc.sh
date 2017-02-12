@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Author: Roosta <mail@roosta.sh>
 # ----------------------------------------
 # backup directory in home(.backup) with directory structure of
@@ -34,18 +34,19 @@
 # http://redsymbol.net/articles/unofficial-bash-strict-mode/
 set -euo pipefail
 IFS=$'\n\t'
-source ~/.bakcrc
+
+source "$HOME/.bakcrc"
 filecopy() {
   if [[ -f $1 || -d $1 ]]; then
-    canon=$(readlink -f ${1})
-    target_path=$(dirname ${canon})
-    target_file=$(basename ${1})
-    destination=${bakc__backup_path}$(dirname ${canon})
+    canon=$(readlink -f "${1}")
+    # target_path=$(dirname ${canon})
+    target_file=$(basename "${1}")
+    destination=${bakc__backup_path:?}$(dirname "${canon}")
     if [[ ! -d "$destination" ]]; then
       mkdir -p "$destination"
     fi
-    cp -rx "${1}" "${destination}/${target_file}~${bakc__file_suffix}"
-    echo "backed up '${1}' to ${destination}/${1}.${bakc__file_suffix}"
+    cp -rx "${1}" "${destination}/${target_file}~${bakc__file_suffix:?}"
+    echo "backed up '${1}' to ${destination}/${1}.${bakc__file_suffix:?}"
   else
     echo "failed to backup: ${1}. Not a valid file" >&2
   fi
@@ -53,10 +54,10 @@ filecopy() {
 
 fileremove() {
   if [[ -f $1 ]]; then
-    rm -Iv --one-file-system ${1}
+    rm -Iv --one-file-system "${1}"
     echo "& removed"
   elif [[ -d $1 ]]; then
-    rm -Irv --one-file-system ${1}
+    rm -Irv --one-file-system "${1}"
   else
     echo "Failed to remove: ${1}. Check permissions" >&2
   fi
@@ -70,7 +71,7 @@ while getopts ":hwR:" opt; do
       ;;
     w)
       if [[ -f $2 ]]; then
-        cp $2 "./${2}.bak"
+        cp "${2}" "./${2}.bak"
       else
         echo "Not a valid file" >&2
         exit 1
@@ -78,25 +79,24 @@ while getopts ":hwR:" opt; do
       exit 0
       ;;
     R)
-      filecopy $1
-      fileremove $1
+      filecopy "${1}"
+      fileremove "${1}"
       exit 0
       ;;
     \?)
-      echo "Invalid option: -$OPTARG" >&2
+      echo "Invalid option: -${OPTARG}" >&2
       exit 1
       ;;
     :)
-      echo "Option -$OPTARG requires an argument." >&2
+      echo "Option -${OPTARG} requires an argument." >&2
       exit 1
       ;;
   esac
 done
 
-
 if [[ $# -gt 0 ]]; then
   while [[ $# -ne 0 ]]; do
-    filecopy $1
+    filecopy "${1}"
     shift
   done
   exit 0
