@@ -65,19 +65,12 @@ file_backup_short() {
 }
 
 file_remove() {
-  if [[ $# -gt 0 ]]; then
-    while [[ $# -ne 0 ]]; do
-      if [[ -f $1 ]]; then
-        rm -Iv --one-file-system "${1}"
-      elif [[ -d $1 ]]; then
-        rm -Irv --one-file-system "${1}"
-      else
-        echo "Failed to remove: ${1}. Check permissions" >&2
-      fi
-      shift
-    done
+  if [[ -f $1 ]]; then
+    rm -Iv --one-file-system "${1}"
+  elif [[ -d $1 ]]; then
+    rm -Irv --one-file-system "${1}"
   else
-    echo "Provide a file to remove" >&2
+    echo "Failed to remove: ${1}. Check permissions" >&2
   fi
 }
 
