@@ -74,6 +74,17 @@ file_remove() {
   fi
 }
 
+usage() {
+	cat >&2 <<EOL
+Usage: bakc [OPTION] SOURCE
+
+options:
+  -w         Save source file in working directory with .bak extension
+  -R         Remove file after backup
+  -h         Display this message
+EOL
+}
+
 run() {
   if [[ $# -gt 0 ]]; then
     while [[ $# -ne 0 ]]; do
@@ -101,7 +112,8 @@ options=":hwR"
 while getopts ${options} opt; do
   case $opt in
     h)
-      echo "Help placeholder" >&2
+      usage
+      exit 0
       ;;
     w)
       wflag=1
