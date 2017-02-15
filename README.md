@@ -24,9 +24,8 @@ bakc__file_suffix=$(date +"%Y-%m-%d@%T")
 ```
 
 ## Usage
-Backup script to speed up the process of backing up system files, appending a date-time and keeping original folder structure:
 ```shell
-bakc ~/src/bakc/bakc.sh                                                                                                                                 [0]
+bakc ~/src/bakc/bakc.sh                                                                                                                                 [
 # backed up '/home/[user]/src/bakc/bakc.sh' to /home/[user]/backup/home/[user]/src/bakc/bakc.sh~2017-02-12@21:20:12
 ```
 
@@ -43,11 +42,11 @@ bakc -wR file.txt
 # removed 'file.txt'
 ```
 
-It takes a relative path, and/or multiple files:
+It takes a relative path, and/or multiple files and follow symlinks:
 ```shell
 bakc ~/.zprofile ~/.zshenv
-# backed up '/home/[user]/.zshenv' to /home/[user]/backup/home/[user]/etc/conf/zsh/.zshenv~2017-02-12@22:01:40
-# backed up '/home/[user]/.zprofile' to /home/[user]/backup/home/[user]/etc/conf/zsh/.zprofile~2017-02-12@22:01:40
+# backed up '/home/[user]/.zshenv' to /home/[user]/backup/home/[user]/.zshenv~2017-02-12@22:01:40
+# backed up '/home/[user]/.zprofile' to /home/[user]/backup/home/[user]/.zprofile~2017-02-12@22:01:40
 
 bakc -w ~/.zshenv ~/.zprofile
 # Created /home/[user]/.zshenv.bak here (/home/[user]/src/bakc)
