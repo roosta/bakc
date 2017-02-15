@@ -77,13 +77,15 @@ file_remove() {
 run() {
   if [[ $# -gt 0 ]]; then
     while [[ $# -ne 0 ]]; do
-      if [[ ! -z $wflag  || ! -z $Rflag ]]; then
-        if [[ ! -z $wflag ]]; then
-          file_backup_short "$1"
-        fi
-        if [[ ! -z $Rflag ]]; then
-          file_remove "$1"
-        fi
+      if [[ ! -z $Rflag && ! -z $wflag ]]; then
+        file_backup_short "$1"
+        file_remove "$1"
+      elif [[ ! -z $Rflag ]]; then
+        file_backup_long "$1"
+        file_remove "$1"
+      elif [[ ! -z $wflag ]]; then
+        file_backup_short "$1"
+        file_remove "$1"
       else
         file_backup_long "$1"
       fi
