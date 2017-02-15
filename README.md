@@ -4,7 +4,7 @@ I made this cause I kept wanting a backup of a file prior to editing it so I can
 
 ## Installation
 ```shell
-git clone https://github.com/[user]/bakc && \
+git clone https://github.com/roosta/bakc && \
 cd bakc && \
 chmod u+x install.sh && \
 ./install.sh
