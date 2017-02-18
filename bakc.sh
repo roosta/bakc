@@ -8,6 +8,7 @@
 # [ ] verbose
 # [ ] add clean
 # [x] conf file?
+# [ ] add restore
 # [ ] move option
 # [ ] include home directory in elevated mode
 # [x] custom location
