@@ -8,6 +8,7 @@
 # [ ] verbose
 # [ ] add clean
 # [x] conf file?
+# [ ] add restore
 # [ ] move option
 # [ ] include home directory in elevated mode
 # [x] custom location
@@ -96,7 +97,6 @@ run() {
         file_remove "$1"
       elif [[ ! -z $wflag ]]; then
         file_backup_short "$1"
-        file_remove "$1"
       else
         file_backup_long "$1"
       fi
