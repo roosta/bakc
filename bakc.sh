@@ -97,7 +97,6 @@ run() {
         file_remove "$1"
       elif [[ ! -z $wflag ]]; then
         file_backup_short "$1"
-        file_remove "$1"
       else
         file_backup_long "$1"
       fi
