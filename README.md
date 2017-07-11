@@ -25,7 +25,7 @@ bakc__file_suffix=$(date +"%Y-%m-%d@%T")
 
 ## Usage
 ```shell
-bakc ~/src/bakc/bakc.sh                                                                                                                                 [
+bakc ~/src/bakc/bakc.sh
 # backed up '/home/[user]/src/bakc/bakc.sh' to /home/[user]/backup/home/[user]/src/bakc/bakc.sh~2017-02-12@21:20:12
 ```
 
