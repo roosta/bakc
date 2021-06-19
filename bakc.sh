@@ -4,19 +4,6 @@
 # backup directory in home(.backup) with directory structure of
 # source file. (~/.backup/[PATH]/FILE)
 # Append dateformatted date and .bak to file (FILENAME.DATE.bak)
-# TODO:
-# [ ] verbose
-# [ ] add clean
-# [x] conf file?
-# [ ] add restore
-# [ ] move option
-# [ ] include home directory in elevated mode
-# [x] custom location
-# [ ] include a temp option
-# [ ] add undo delete
-# [ ] add archive function
-# [ ] fix success on failed message
-
 # -----------------------------------
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
