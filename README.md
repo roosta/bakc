@@ -1,4 +1,10 @@
 # bakc
+
+> [!IMPORTANT]
+> Moved to a new
+> [repository](https://github.com/roosta/scripts?tab=readme-ov-file#bakcsh),
+> maintance will happen there going forward
+
 Simple file backup utility. Nothing special, just something to expedite backing up single files and adding timestamp.
 I made this cause I kept wanting a backup of a file prior to editing it so I can roll back if necessary and it all got rather tedious to keep appending timestamp and retaining the path of the file.
 
